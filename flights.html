@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>航班预订 | FFXNXX 航空公司</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+    <div class="logo">FFXNXX 航空</div>
+    <nav>
+        <a href="/about.html" class="nav-button">关于</a>
+        <a href="/" class="nav-button">主页</a>
+    </nav>
+</header>
+<main>
+    <section class="hero">
+        <h1>航班预订</h1>
+    </section>
+    <section class="container">
+        <ul class="flight-list" id="flightList">
+            <!-- 模板开始 -->
+            <li class="flight-item template" style="display:none;">
+                <div class="flight-info">
+                    <p>航班号: <span class="flight-number"></span></p>
+                    <p>起点: <span class="departure"></span></p>
+                    <p>终点: <span class="arrival"></span></p>
+                    <p>机型: <span class="aircraft"></span></p>
+                </div>
+                <div class="flight-price">
+                    经济舱: <span class="economy-price"></span>元 / 
+                    头等舱: <span class="first-class-price"></span>元
+                </div>
+                <a href="#" class="buy-button">购票</a>
+            </li>
+            <!-- 模板结束 -->
+        </ul>
+    </section>
+</main>
+<footer>
+    <p>&copy; 2024 FFXNXX 航空公司. All rights reserved.</p>
+</footer>
+
+<script>
+// 航班数据
+const flights = [
+    {number: '3X101', departure: '华盛顿克斯恩国际机场', arrival: '北京首都国际机场', economyPrice: 5000, firstClassPrice: 7000, aircraft: 'A380'},
+    {number: '3X102', departure: '华盛顿克斯恩国际机场', arrival: '上海浦东国际机场', economyPrice: 5000, firstClassPrice: 7000, aircraft: 'A380'},
+    {number: '3X103', departure: '华盛顿克斯恩国际机场', arrival: '澳大利亚普林斯顿海滨机场', economyPrice: 5000, firstClassPrice: 7000, aircraft: '波音787'},
+    {number: '3X104', departure: '华盛顿克斯恩国际机场', arrival: '巴黎铁青象牌国际机场', economyPrice: 10000, firstClassPrice: 14000, aircraft: '协和式客机'},
+    {number: '3X105', departure: '华盛顿克斯恩国际机场', arrival: '东京羽田机场', economyPrice: 10000, firstClassPrice: 14000, aircraft: '协和式客机'},
+    {number: '3X201', departure: '华盛顿克斯恩国际机场', arrival: '洛杉矶国际机场', economyPrice: 2000, firstClassPrice: 3000, aircraft: '波音747'}
+];
+
+// 获取模板元素
+const template = document.querySelector('.template');
+const flightList = document.getElementById('flightList');
+
+// 遍历航班数据，为每个航班创建一个新的列表项
+flights.forEach(flight => {
+    const newFlightItem = template.cloneNode(true); // 克隆模板
+    newFlightItem.style.display = ''; // 显示克隆的元素
+    newFlightItem.querySelector('.flight-number').textContent = flight.number;
+    newFlightItem.querySelector('.departure').textContent = flight.departure;
+    newFlightItem.querySelector('.arrival').textContent = flight.arrival;
+    newFlightItem.querySelector('.economy-price').textContent = flight.economyPrice;
+    newFlightItem.querySelector('.first-class-price').textContent = flight.firstClassPrice;
+    newFlightItem.querySelector('.aircraft').textContent = flight.aircraft;
+    newFlightItem.querySelector('.buy-button').href = `/buy/${flight.number}/buy.php`; // 设置购票链接
+    
+    flightList.appendChild(newFlightItem); // 将新的列表项添加到列表中
+});
+</script>
+</body>
+</html>
